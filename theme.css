@@ -1,0 +1,256 @@
+/* ============================================================
+   REDUCTO — Light body theme with dark nav + footer bookends.
+   Middle sections inherit the light tokens from styles.css.
+   Here we: keep NAV dark always, light-ify HERO / INDUSTRIES /
+   DEVELOPERS / CTA, and keep the demo card + code block dark as
+   self-contained "device" surfaces. Loaded LAST.
+   ============================================================ */
+
+:root {
+  --grad-text: linear-gradient(110deg, #c2691f 0%, #9d17a0 45%, #7a1fd6 90%);
+}
+html, body { background: #F9F8F7; }
+
+/* Unified light background for every section between the hero and footer */
+.section--tight, #how, #features, #developers, #faq, #cta { background: #F9F8F7; }
+
+/* Marquee — dark, blends seamlessly out of the hero (hero fades to #0b0410) */
+.marquee-section { background: #0b0410; color: #fff; }
+.marquee-label { color: rgba(255,255,255,.5); }
+.marquee-label b { color: rgba(255,255,255,.82); }
+.marquee .logo .wordmark { color: rgba(255,255,255,.82); }
+.marquee .logo img { filter: brightness(0) invert(1); opacity: .8; }
+
+/* Products / toolbox — light header band; white 3D cards scroll up over it */
+#products { background: #F9F8F7; color: var(--ink); }
+#products .products-head .h2 { color: var(--ink); }
+#products .products-head .lead { color: var(--stone-600); }
+#products .products-head .eyebrow { color: var(--magenta); }
+
+/* ---------------- NAV — dark always ---------------- */
+.nav { background: rgba(18,6,21,.78); backdrop-filter: blur(16px) saturate(1.3); border-bottom: 1px solid transparent; transition: background .4s var(--ease), box-shadow .4s var(--ease), backdrop-filter .4s var(--ease); }
+.nav .nav-logo .logo-light { opacity: 1; }
+.nav .nav-logo .logo-dark { opacity: 0; }
+.nav .nav-links a, .nav .nav-links button { color: rgba(255,255,255,.74); }
+.nav .nav-links a:hover, .nav .nav-links button:hover { color: #fff; background: rgba(255,255,255,.08); }
+.nav .nav-login { color: rgba(255,255,255,.8); }
+.nav .nav-login:hover { color: #fff; background: rgba(255,255,255,.08); }
+/* .nav .nav-cta styling lives in the gradient-primary block below */
+.nav.scrolled { background: rgba(18,6,21,.9); border-bottom-color: transparent; box-shadow: 0 14px 34px -12px rgba(0,0,0,.7), 0 3px 10px rgba(0,0,0,.45); }
+.nav.scrolled .nav-logo .logo-light { opacity: 1; }
+.nav.scrolled .nav-logo .logo-dark { opacity: 0; }
+.nav.scrolled .nav-links a, .nav.scrolled .nav-links button { color: rgba(255,255,255,.74); }
+.nav.scrolled .nav-links a:hover, .nav.scrolled .nav-links button:hover { color: #fff; background: rgba(255,255,255,.08); }
+.nav.scrolled .nav-login { color: rgba(255,255,255,.8); }
+
+/* ---------------- shared light button overrides ---------------- */
+.btn-light { background: var(--white); color: var(--ink); border: 1px solid var(--stone-300); backdrop-filter: none; }
+.btn-light:hover { background: var(--paper-2); border-color: var(--stone-400); transform: translateY(-2px); }
+.btn-on-dark { background: var(--magenta); color: #fff; }
+.btn-on-dark:hover { background: var(--magenta-bright); }
+
+/* ---------------- HERO — dark, with bleed-off product shot ---------------- */
+.hero {
+  background: radial-gradient(130% 120% at 76% 0%, #3a0f3c 0%, #210724 42%, #0b0410 84%);
+  color: #fff;
+  min-height: 680px;
+}
+.hero::before { background-image:
+  linear-gradient(rgba(220,191,251,.09) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(220,191,251,.09) 1px, transparent 1px); background-size: 26px 26px; }
+.hero::after { background: radial-gradient(closest-side, rgba(199,33,201,.34), transparent 70%); top: -8%; right: 4%; width: 64%; height: 100%; }
+.hero h1 { color: #fff; }
+.hero h1 .hl { color: var(--lav-400); }
+.hero-lead { color: rgba(255,255,255,.74); }
+.hero-pill { background: rgba(255,255,255,.06); border-color: rgba(220,191,251,.2); color: rgba(255,255,255,.85); box-shadow: none; backdrop-filter: blur(6px); }
+.hero-pill .tag { background: #3b82f6; color: #fff; }
+.hero-pill:hover { background: rgba(255,255,255,.1); }
+.hero-meta { color: rgba(255,255,255,.55); }
+.hero-meta b { color: rgba(255,255,255,.85); }
+.hero-meta .dot { background: rgba(255,255,255,.3); }
+.hero .btn-light { background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.24); backdrop-filter: blur(8px); }
+.hero .btn-light:hover { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.35); transform: translateY(-2px); }
+
+/* Oversized product shot anchored to the right, bleeding off the viewport */
+.hero-grid { grid-template-columns: 1fr 1fr; }
+.hero-copy { max-width: 500px; position: relative; z-index: 3; }
+.hero-visual { position: absolute; top: 16px; left: 52%; width: clamp(720px, 66vw, 1220px); z-index: 2; perspective: 2200px; perspective-origin: 70% 40%; }
+.demo {
+  width: 100%; max-width: none;
+  background: #160a1e;
+  border-color: rgba(220,191,251,.16);
+  box-shadow: 0 30px 80px -30px rgba(0,0,0,.65), 0 60px 150px -50px rgba(0,0,0,.55), 0 0 70px -22px rgba(199,33,201,.4), inset 0 1px 0 rgba(255,255,255,.05);
+  transform: translate3d(0, var(--parallax, 0px), 0) rotateY(-16deg) rotateX(7deg) rotateZ(-1deg);
+  transform-style: preserve-3d;
+  transition: transform .8s var(--ease), box-shadow .8s var(--ease);
+  will-change: transform;
+}
+.hero-visual:hover .demo { transform: translate3d(0, var(--parallax, 0px), 0) rotateY(-7deg) rotateX(3deg) rotateZ(0deg); box-shadow: 0 36px 90px -30px rgba(0,0,0,.65), 0 70px 170px -50px rgba(0,0,0,.6), 0 0 90px -20px rgba(226,79,228,.5), inset 0 1px 0 rgba(255,255,255,.06); }
+.no-motion .demo { transform: rotateY(-13deg) rotateX(6deg); transition: none; }
+@media (prefers-reduced-motion: reduce) { .demo { transition: none; } }
+.demo-body { min-height: 430px; }
+
+/* ============ HERO DEMO — dark glass panel, tuned to the plum hero ============
+   One continuous dark plum gradient + faint lavender dot-grid across the whole
+   window; neon-magenta detection accents; JSON uses the dark code-block palette. */
+.demo {
+  background:
+    radial-gradient(92% 62% at 86% 0%, rgba(226,79,228,.18), transparent 56%),
+    radial-gradient(86% 82% at 2% 106%, rgba(122,31,214,.26), transparent 60%),
+    url("assets/demo-grid-dark.svg") 0 0 / 22px 22px,
+    linear-gradient(155deg, #2a1138 0%, #1a0b24 52%, #110614 100%);
+}
+.demo-bar { background: transparent; border-bottom: none; }
+.demo-bar .dots i { background: rgba(220,191,251,.32); }
+.demo-bar .status { color: var(--magenta-glow); }
+.demo-body { background: transparent; }
+
+/* Document preview — dark "page" with light skeleton lines */
+.demo-doc { background: transparent; border-right: 1px solid rgba(220,191,251,.1); }
+.demo-doc .page {
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(220,191,251,.08);
+  box-shadow: 0 12px 36px -18px rgba(0,0,0,.6);
+}
+.doc-h { background: rgba(236,231,245,.3); }
+.doc-line { background: rgba(236,231,245,.14); }
+.doc-table span { background: rgba(236,231,245,.12); }
+.doc-table span.hd { background: rgba(236,231,245,.26); }
+
+/* Detection boxes — brighter neon magenta on dark */
+.doc-region .bbox { border-color: var(--magenta-glow); }
+.doc-region .bbox .lab { background: var(--magenta-glow); color: #1b0420; box-shadow: 0 2px 12px -2px rgba(226,79,228,.7); }
+.doc-region.lit { background: rgba(226,79,228,.1); }
+
+/* Structured JSON output — dark editor palette (matches the developer code block) */
+.demo-out { color: rgba(236,231,245,.78); }
+.demo-out .k { color: var(--lav-400); }
+.demo-out .s { color: #8fe3b0; }
+.demo-out .n { color: #f0b866; }
+.demo-out .p { color: #6fd3e0; }
+.demo-out .badge { background: rgba(143,227,176,.14); color: #8fe3b0; }
+
+@media (max-width: 980px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-copy { max-width: none; }
+  .hero-visual { position: static; transform: none; width: 100%; margin-top: 30px; perspective: none; }
+  .hero-visual .demo, .no-motion .hero-visual .demo { transform: none; }
+  .demo-body { min-height: 360px; }
+}
+
+/* ---------------- STAT — gradient number ---------------- */
+.stat .num { background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* localized light glow accents */
+#products, .cta { position: relative; }
+#products::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(55% 45% at 50% -6%, rgba(157,23,160,.06), transparent 60%);
+}
+#products > .container { position: relative; z-index: 1; }
+
+/* Enterprise — warm charcoal dark centerpiece (matches the illustration) */
+#enterprise { background: radial-gradient(130% 120% at 76% 0%, #3a0f3c 0%, #210724 42%, #0b0410 84%); color: #fff; position: relative; overflow: hidden; }
+#enterprise::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(58% 48% at 50% 4%, rgba(157,23,160,.10), transparent 64%);
+}
+#enterprise > .container { position: relative; z-index: 1; }
+#enterprise .eyebrow { color: var(--lav-400); }
+#enterprise .section-head h2 { color: #fff; }
+#enterprise .section-head .lead { color: rgba(255,255,255,.6); }
+
+/* feature card gradient hairline on hover (light) */
+.feat { position: relative; }
+.feat::before {
+  content:""; position:absolute; inset:0; border-radius: inherit; padding:1px;
+  background: linear-gradient(120deg, #c721c9, #7a1fd6 60%, #3b82f6);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity:0; transition: opacity .45s var(--ease); pointer-events:none;
+}
+.feat:hover::before { opacity:.75; }
+.feat:hover { border-color: transparent; }
+
+/* ---------------- INDUSTRIES — dark (cards stay white) ---------------- */
+.ind-visual { box-shadow: var(--shadow-lg); }
+
+/* ---------------- HOW IT WORKS — light; connected step frame matches Features ---------------- */
+#how .eyebrow { color: var(--magenta); }
+
+/* ---------------- DEVELOPERS — light section, dark code ---------------- */
+.dev { background: #F9F8F7; color: var(--text); }
+.dev::before { display: none; }
+.dev .eyebrow { color: var(--magenta); }
+.dev h2 { color: var(--ink); }
+.dev-lead { color: var(--stone-600); }
+.dev-points li { color: var(--stone-700); }
+.dev-points .ck { color: var(--magenta); }
+.dev .code { background: #0c0410; box-shadow: var(--shadow-lg), 0 30px 80px -30px rgba(157,23,160,.25); }
+
+/* ---------------- CTA — seamless white background so the video blends in ---------------- */
+.cta {
+  background: #F9F8F7;
+  color: var(--ink);
+}
+.cta::before { display: none; }
+.cta h2 { color: var(--ink); }
+.cta p { color: var(--stone-600); }
+.cta .btn-light { background: var(--white); color: var(--ink); border: 1px solid var(--stone-300); }
+
+/* footer stays dark (defined in sections.css) — no overrides needed */
+
+/* ---------------- decorative document-grid texture (select light sections) ---------------- */
+.grid-tex { position: relative; }
+.grid-tex::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: url("assets/document-grid-illustration-desktop.svg") no-repeat center center;
+  background-size: min(1700px, 130%) auto;
+  opacity: .9;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+}
+.grid-tex > .container { position: relative; z-index: 1; }
+/* enterprise already carries a ::after glow; keep its container above the texture too */
+#enterprise.grid-tex > .container { position: relative; z-index: 1; }
+
+/* CTA closing video banner — frameless, blends into the #fafafa background */
+.cta-video { max-width: 1120px; margin: 0 auto 40px; border: none; box-shadow: none; background: transparent; border-radius: 0; overflow: visible; line-height: 0; }
+.cta-video video { width: 100%; height: auto; display: block; }
+
+/* ---------------- Gradient-purple primary buttons (cursor-tracking sheen) ----------------
+   JS sets --btn-mx / --btn-my (px) to the cursor position within each button; the two
+   radial layers brighten that spot, layered over a fixed purple gradient. --btn-glow fades
+   the sheen in on hover. Registered @property values let --btn-glow transition smoothly. */
+@property --btn-mx { syntax: "<length-percentage>"; inherits: false; initial-value: 50%; }
+@property --btn-my { syntax: "<length-percentage>"; inherits: false; initial-value: 50%; }
+@property --btn-glow { syntax: "<number>"; inherits: false; initial-value: 0; }
+
+.btn-primary,
+.hero-form-btn,
+.nav .nav-cta, .nav.scrolled .nav-cta,
+.ind .btn-on-dark {
+  position: relative;
+  color: #fff;
+  border: none;
+  background:
+    radial-gradient(130px circle at var(--btn-mx) var(--btn-my), rgb(255 230 252 / calc(var(--btn-glow) * 0.5)), transparent 62%),
+    radial-gradient(260px circle at var(--btn-mx) var(--btn-my), rgb(228 150 245 / calc(var(--btn-glow) * 0.5)), transparent 74%),
+    linear-gradient(105deg, #7a1ae8 0%, #a11fd9 46%, #cf1fcd 100%);
+  background-color: #a11fd9;
+  box-shadow: 0 8px 24px -10px rgba(150,35,205,.55);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), --btn-glow .4s var(--ease);
+}
+.btn-primary:hover,
+.hero-form-btn:hover,
+.nav .nav-cta:hover, .nav.scrolled .nav-cta:hover,
+.ind .btn-on-dark:hover {
+  --btn-glow: 0.5;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -12px rgba(150,35,205,.6);
+}
+.btn-primary:hover svg, .ind .btn-on-dark:hover svg { transform: translateX(3px); }
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary, .hero-form-btn, .nav .nav-cta, .ind .btn-on-dark { transition: --btn-glow .4s linear; }
+}

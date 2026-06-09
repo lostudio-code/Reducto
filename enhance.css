@@ -1,0 +1,101 @@
+/* ============================================================
+   REDUCTO — Awwwards motion + micro-interaction layer
+   Layered on top of the existing build. NO layout changes:
+   only smooth scroll, cursor, magnetics, spotlights, ripples,
+   animated underlines and a sliding tab indicator.
+   Loaded LAST (after sections.css / theme.css).
+   ============================================================ */
+
+/* ---------- Lenis smooth-scroll baseline ---------- */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ---------- Scroll progress bar (under the nav line) ---------- */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 200;
+  transform: scaleX(0); transform-origin: 0 50%;
+  background: linear-gradient(90deg, #c2691f, #c721c9 38%, #7a1fd6 70%, #3b82f6);
+  will-change: transform; pointer-events: none;
+}
+
+/* ---------- Click ripple ---------- */
+.has-ripple { position: relative; overflow: hidden; }
+.ripple-ink {
+  position: absolute; border-radius: 50%; pointer-events: none; z-index: 4;
+  background: radial-gradient(circle, rgba(255,255,255,.5), rgba(255,255,255,0) 70%);
+  transform: translate(-50%,-50%) scale(0); opacity: .85;
+  animation: rippleGo .66s ease-out forwards;
+}
+@keyframes rippleGo { to { transform: translate(-50%,-50%) scale(1); opacity: 0; } }
+
+/* ---------- Animated link underlines ---------- */
+.u-line { position: relative; }
+.u-line::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 1px; height: 1px;
+  background: currentColor; transform: scaleX(0); transform-origin: 0 50%;
+  transition: transform .42s var(--ease); opacity: .55;
+}
+.u-line:hover::after, .u-line:focus-visible::after { transform: scaleX(1); }
+
+/* ---------- Sliding tab indicator ---------- */
+.tabbar-rel { position: relative; }
+.tab-underline {
+  position: absolute; bottom: -1px; left: 0; height: 2px; width: 0;
+  background: var(--magenta); border-radius: 2px; pointer-events: none; opacity: 0;
+  transition: transform .45s var(--ease), width .45s var(--ease), opacity .3s var(--ease);
+  will-change: transform, width;
+}
+.code-tabs .tab-underline { background: var(--magenta-glow); }
+
+/* ---------- Spotlight on feature cells ---------- */
+.feat-cell { position: relative; }
+.feat-cell > * { position: relative; z-index: 1; }
+.feat-cell::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(220px circle at var(--mx,50%) var(--my,50%), rgba(199,33,201,.09), transparent 62%);
+  opacity: 0; transition: opacity .4s var(--ease);
+}
+.feat-cell.is-spot::after { opacity: 1; }
+
+/* ---------- Enterprise feature glow (on dark) ---------- */
+.ent-feat { position: relative; }
+.ent-feat > * { position: relative; z-index: 1; }
+.ent-feat::after {
+  content: ""; position: absolute; inset: -8px -14px; z-index: 0; pointer-events: none; border-radius: 16px;
+  background: radial-gradient(200px circle at var(--mx,50%) var(--my,50%), rgba(226,79,228,.13), transparent 60%);
+  opacity: 0; transition: opacity .45s var(--ease);
+}
+.ent-feat.is-spot::after { opacity: 1; }
+
+/* ---------- Industry visual: tilt + sheen ---------- */
+.ind-visual { transform-style: preserve-3d; transition: transform .45s var(--ease); will-change: transform; }
+.ind-visual::after {
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: radial-gradient(320px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.22), transparent 55%);
+  opacity: 0; transition: opacity .4s var(--ease); mix-blend-mode: soft-light;
+}
+.ind-visual.is-spot::after { opacity: 1; }
+
+/* ---------- Micro hovers ---------- */
+.marquee .logo { transition: opacity .55s var(--ease), filter .55s var(--ease), transform .35s var(--ease); }
+.marquee .logo:hover { transform: scale(1.07); }
+.link-arrow { transition: gap .25s var(--ease), color .25s var(--ease); }
+.link-arrow:hover { gap: 11px; }
+.faq-q .ic { will-change: transform; }
+
+/* ---------- Keep the decorative dotted band BEHIND the feature tiles ----------
+   .feat-dots carries will-change:transform (parallax), which promotes it to its
+   own compositing layer that can otherwise paint OVER the tiles in a fresh/standalone
+   render. Give the tile frame a higher stacking context so the dots stay behind it. */
+.feat-frame { position: relative; z-index: 1; }
+.feat-dots { position: relative; z-index: 0; }
+
+/* ---------- Motion preferences / Tweaks "animations off" ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress { display: none !important; }
+  .ind-visual { transform: none !important; }
+}
+.no-motion .scroll-progress { display: none !important; }
+.no-motion .ind-visual { transform: none !important; }

@@ -1,0 +1,14 @@
+<svg width="1216" height="334" viewBox="0 0 1216 334" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="reductoDots" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.05" fill="#b9b6ad"></circle>
+    </pattern>
+    <radialGradient id="reductoDotsFade" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(608 8) scale(720 260)">
+      <stop stop-color="#F9F8F7" stop-opacity="0"></stop>
+      <stop offset="0.4" stop-color="#F9F8F7" stop-opacity="0.12"></stop>
+      <stop offset="1" stop-color="#F9F8F7" stop-opacity="1"></stop>
+    </radialGradient>
+  </defs>
+  <rect width="1216" height="334" fill="url(#reductoDots)"></rect>
+  <rect width="1216" height="334" fill="url(#reductoDotsFade)"></rect>
+</svg>

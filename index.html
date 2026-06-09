@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reducto — The Agentic Document Platform for AI Teams</title>
+<meta name="description" content="Reducto is the agentic document platform for leading AI teams — one API for parsing, extraction, splitting, and editing, built for enterprise accuracy at scale.">
+<script>document.documentElement.className += " js";</script>
+<link rel="stylesheet" href="https://unpkg.com/lenis@1/dist/lenis.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="sections.css">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="enhance.css">
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <div class="nav-left">
+      <a href="#" class="nav-logo" aria-label="Reducto home">
+        <span class="logo-stack">
+          <img class="logo-light" src="assets/reducto-logo.svg" alt="Reducto" style="filter:brightness(0) invert(1)">
+          <img class="logo-dark" src="assets/reducto-logo.svg" alt="Reducto">
+        </span>
+      </a>
+    </div>
+    <div class="nav-links">
+      <a href="#products">Studio</a>
+      <button>API <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+      <button>Industries <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+      <a href="#industries">Customers</a>
+      <button>Resources <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+      <a href="#">Pricing</a>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="nav-login">Log in</a>
+      <a href="#cta" class="nav-cta">Request a demo</a>
+      <button class="nav-burger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <canvas class="hero-grid-canvas" id="heroGrid" aria-hidden="true"></canvas>
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <a href="#" class="hero-pill reveal">
+        <span class="tag">New</span>
+        <span class="pill-txt">Deep Extract — our most accurate agent yet</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <h1 class="display reveal" data-d="1" style="font-size: 60px">Document work<br><span class="hl" style="color:#fff">starts here</span></h1>
+      <p class="hero-lead reveal" data-d="2">Parse, split, extract, and edit, all from one toolkit.</p>
+      <form class="hero-form reveal" data-d="3" id="heroForm" novalidate>
+        <input type="email" class="hero-email" id="heroEmail" placeholder="Work email" aria-label="Work email" autocomplete="email" required>
+        <button type="submit" class="hero-form-btn">Request a demo</button>
+      </form>
+      <p class="hero-form-note reveal" data-d="3" id="heroFormNote">Talk to our team about enterprise accuracy at scale.</p>
+      <div class="hero-meta reveal" data-d="4">
+        <span><b>SOC 2 Type II</b> &amp; HIPAA</span>
+        <span class="dot"></span>
+        <span><b>3B+</b> pages processed</span>
+        <span class="dot"></span>
+        <span><b>99.9%</b> uptime</span>
+      </div>
+    </div>
+
+    <!-- LIVE PARSE DEMO -->
+    <div class="hero-visual reveal" data-d="2">
+      <div class="demo" id="demo" data-parallax="0.045">
+        <div class="demo-bar">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="status"><span class="led"></span><span id="demoStatus">Parsing…</span></span>
+        </div>
+        <div class="demo-body">
+          <div class="demo-doc">
+            <div class="scanline"></div>
+            <div class="page">
+              <div class="doc-region" data-r="0"><div class="bbox"><span class="lab">Title</span></div><div class="doc-h"></div></div>
+              <div class="doc-region" data-r="1"><div class="bbox"><span class="lab">Paragraph</span></div>
+                <div class="doc-line"></div><div class="doc-line"></div><div class="doc-line" style="width:84%"></div>
+              </div>
+              <div class="doc-region" data-r="2"><div class="bbox"><span class="lab">Table</span></div>
+                <div class="doc-table">
+                  <span class="hd"></span><span class="hd"></span><span class="hd"></span>
+                  <span></span><span></span><span></span>
+                  <span></span><span></span><span></span>
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
+              <div class="doc-region" data-r="3"><div class="bbox"><span class="lab">Figure</span></div>
+                <div class="doc-line"></div>
+              </div>
+              <div class="doc-region" data-r="4"><div class="bbox"><span class="lab">Footnote</span></div>
+                <div class="doc-line" style="width:70%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-out" id="demoOut">
+            <div class="ln"><span class="p">{</span></div>
+            <div class="ln">  <span class="k">"document_type"</span>: <span class="s">"10-K"</span>,</div>
+            <div class="ln">  <span class="k">"title"</span>: <span class="s">"Annual Report"</span>,</div>
+            <div class="ln">  <span class="k">"sections"</span>: <span class="n">14</span>,</div>
+            <div class="ln">  <span class="k">"table"</span>: <span class="p">{</span></div>
+            <div class="ln">    <span class="k">"rows"</span>: <span class="n">128</span>, <span class="k">"cols"</span>: <span class="n">6</span>,</div>
+            <div class="ln">    <span class="k">"confidence"</span>: <span class="n">0.997</span></div>
+            <div class="ln">  <span class="p">},</span></div>
+            <div class="ln">  <span class="k">"figures"</span>: <span class="n">3</span>,</div>
+            <div class="ln">  <span class="k">"status"</span>: <span class="s">"parsed"</span><span class="badge">✓ verified</span></div>
+            <div class="ln"><span class="p">}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MARQUEE ============ -->
+<section class="marquee-section">
+  <div class="container">
+    <p class="marquee-label">Teams trust Reducto to unlock their documents.</p>
+  </div>
+  <div class="marquee">
+    <div class="logo-rotator" id="marqueeTrack">
+      <!-- fixed slots; logos dissolve + rotate via JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS / TOOLBOX ============ -->
+<section class="section" id="products">
+  <div class="container">
+    <div class="products-head">
+      <div class="section-head">
+        <span class="eyebrow reveal">The toolbox</span>
+        <h2 class="h2 reveal" data-d="1">Free your data from documents</h2>
+      </div>
+      <p class="lead reveal" data-d="2" style="max-width: 740px; white-space: nowrap">Composable APIs for every document task — mix and match them into one pipeline.</p>
+    </div>
+
+    <div class="stack" id="prodStack"><!-- 3D stacked cards generated by JS --></div>
+  </div>
+</section>
+
+<!-- ============ INDUSTRIES ============ -->
+<section class="section ind" id="industries">
+  <div class="container">
+    <div class="section-head" style="max-width: 1100px">
+      <span class="eyebrow reveal">Use cases</span>
+      <h2 class="h2 reveal" data-d="1" style="white-space: nowrap">Powering the world's best AI teams</h2>
+      <p class="lead reveal" data-d="2">Trusted where accuracy is non-negotiable — finance, healthcare, insurance, and legal.</p>
+    </div>
+
+    <div class="ind-tabs reveal">
+      <button class="ind-tab active" data-ind="0">Finance</button>
+      <button class="ind-tab" data-ind="1">Healthcare</button>
+      <button class="ind-tab" data-ind="2">Insurance</button>
+      <button class="ind-tab" data-ind="3">Legal</button>
+    </div>
+
+    <!-- Finance -->
+    <div class="ind-panel active" data-panel="0">
+      <div class="ind-copy">
+        <h3>Turn filings into signal.</h3>
+        <p>Extract insights from investor decks, dense pitch materials, sprawling spreadsheets, and SEC filings. Reducto handles complex tables, charts, and footnotes that break everything else.</p>
+        <div class="ind-quote">
+          <p>"Reducto parsed documents we simply couldn't before because of table complexity. It's the only AI product that has actually worked for us."</p>
+          <span class="who">— Engineering Leader, Top 5 Global Hedge Fund</span>
+        </div>
+        <a href="#cta" class="btn btn-on-dark">Get started</a>
+      </div>
+      <div class="ind-visual"><img src="assets/use-cases-finance-illustration.svg" alt="Finance document parsing"></div>
+    </div>
+    <!-- Healthcare -->
+    <div class="ind-panel" data-panel="1">
+      <div class="ind-copy">
+        <h3>Make clinical data usable.</h3>
+        <p>Parse charts, lab reports, intake forms, and scanned faxes — including handwriting — with HIPAA-grade security. Structured outputs your models can actually trust.</p>
+        <div class="ind-quote">
+          <p>"Faxes, scans, and handwriting in one pipeline — accuracy held up where our previous OCR fell apart."</p>
+          <span class="who">— Head of ML, Digital Health Platform</span>
+        </div>
+        <a href="#cta" class="btn btn-on-dark">Get started</a>
+      </div>
+      <div class="ind-visual"><img src="assets/use-cases-healthcare-illustration.svg" alt="Healthcare document parsing"></div>
+    </div>
+    <!-- Insurance -->
+    <div class="ind-panel" data-panel="2">
+      <div class="ind-copy">
+        <h3>Automate the paperwork.</h3>
+        <p>Process claims, policy documents, ACORD forms, and loss runs at scale. Split multi-document packets and extract every field — no templates, no bounding boxes.</p>
+        <div class="ind-quote">
+          <p>"We replaced a manual review queue with a Reducto pipeline. Same accuracy, a fraction of the time."</p>
+          <span class="who">— VP Engineering, Insurtech</span>
+        </div>
+        <a href="#cta" class="btn btn-on-dark">Get started</a>
+      </div>
+      <div class="ind-visual"><img src="assets/use-cases-insurance-illustration.svg" alt="Insurance document parsing"></div>
+    </div>
+    <!-- Legal -->
+    <div class="ind-panel" data-panel="3">
+      <div class="ind-copy">
+        <h3>Read the fine print, at scale.</h3>
+        <p>Contracts, briefs, discovery, and deposition transcripts — parsed with structure and citations intact. Build retrieval and review tools on clean, grounded data.</p>
+        <div class="ind-quote">
+          <p>"Layout and citations survive parsing intact. That's what made grounded answers possible for us."</p>
+          <span class="who">— Founding Engineer, Legal AI</span>
+        </div>
+        <a href="#cta" class="btn btn-on-dark">Get started</a>
+      </div>
+      <div class="ind-visual"><img src="assets/use-cases-legal-illustration.svg" alt="Legal document parsing"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section" id="how">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow reveal">Under the hood</span>
+      <h2 class="h2 reveal" data-d="1">Built to read the way humans do</h2>
+      <p class="lead reveal" data-d="2">A multi-pass system that pairs layout-aware models with vision-language models — for accuracy and reliability no single model reaches alone.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal" data-d="1">
+        <span class="num"></span>
+        <div class="vis" data-vis="layout"></div>
+        <h4>Layout-aware parsing</h4>
+        <p>Reducto breaks the document down visually first — capturing regions, tables, figures, and reading order.</p>
+      </div>
+      <div class="step reveal" data-d="2">
+        <span class="num"></span>
+        <div class="vis" data-vis="vlm"></div>
+        <h4>VLMs review in context</h4>
+        <p>Vision-language models interpret each region — linking labels to values, understanding tables, classifying segments.</p>
+      </div>
+      <div class="step reveal" data-d="3">
+        <span class="num"></span>
+        <div class="vis" data-vis="correct"></div>
+        <h4>Agentic self-correction</h4>
+        <p>Like a human editor, the model catches and fixes its own mistakes — accuracy that holds in the most detailed cases.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow reveal">The platform</span>
+      <h2 class="h2 reveal" data-d="1">Engineered for accuracy, at every layer</h2>
+      <p class="lead reveal" data-d="2">A feature set that covers the long tail of your processing needs — out of the box.</p>
+    </div>
+    <div class="feat-frame reveal" data-d="2">
+      <!-- 1 — Layout extraction -->
+      <div class="feat-cell">
+        <div class="feat-vid-wrap">
+          <video class="feat-vid" autoplay loop muted playsinline preload="auto" aria-hidden="true"><source src="assets/feature-layout.webm" type="video/webm"></video>
+        </div>
+        <div class="feat-meta">
+          <div class="feat-title">
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path fill="currentColor" d="M16.875 3.125h.75v-.75h-.75zm0 13.75v.75h.75v-.75zm-13.75 0h-.75v.75h.75zm0-13.75v-.75h-.75v.75zm7.625 0v-.75h-1.5v.75zm-7.625 4.25h-.75v1.5h.75zm6.125 9.5v.75h1.5v-.75zm7.625-4.25h.75v-1.5h-.75zm-.75-9.5v13.75h1.5V3.125zm.75 13H3.125v1.5h13.75zm-13 .75V3.125h-1.5v13.75zm-.75-13h13.75v-1.5H3.125zm6.125-.75v5h1.5v-5zm.75 4.25H3.125v1.5H10zm-.75.75v3.75h1.5v-3.75zm0 3.75v5h1.5v-5zm.75.75h6.875v-1.5H10z"/></svg>
+            <h4>Layout extraction</h4>
+          </div>
+          <p>Handle everything from massive tables to handwritten forms while preserving bounding boxes and structure.</p>
+        </div>
+      </div>
+      <!-- 2 — File type support -->
+      <div class="feat-cell">
+        <div class="feat-vid-wrap">
+          <video class="feat-vid" autoplay loop muted playsinline preload="auto" aria-hidden="true"><source src="assets/feature-filetypes.webm" type="video/webm"></video>
+        </div>
+        <div class="feat-meta">
+          <div class="feat-title">
+            <svg viewBox="0 0 21 20" fill="none" aria-hidden="true"><path stroke="currentColor" stroke-linecap="square" stroke-width="1.5" d="M15.042 15.208v2.5H4.625V4.792h2.5m6.25-2.5h-6.25v12.916h10.417v-8.75m-4.167-4.166 4.167 4.166m-4.167-4.166v4.166h4.167"/></svg>
+            <h4>File type support</h4>
+          </div>
+          <p>Support for PDFs, images, spreadsheets, slides, and more—all through one API.</p>
+        </div>
+      </div>
+      <!-- 3 — Language support -->
+      <div class="feat-cell">
+        <div class="feat-vid-wrap">
+          <video class="feat-vid" autoplay loop muted playsinline preload="auto" aria-hidden="true"><source src="assets/feature-language.webm" type="video/webm"></video>
+        </div>
+        <div class="feat-meta">
+          <div class="feat-title">
+            <svg viewBox="0 0 21 20" fill="none" aria-hidden="true"><path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="1.5" d="M6.103 16.875V9.166m12.77-5.208H8.455m2.083 5.209H1.79m11.875-5v12.708"/></svg>
+            <h4>Language support</h4>
+          </div>
+          <p>Multilingual parsing across 100+ languages, including mixed-language docs.</p>
+        </div>
+      </div>
+      <!-- 4 — LLM optimized -->
+      <div class="feat-cell">
+        <div class="feat-vid-wrap">
+          <video class="feat-vid" autoplay loop muted playsinline preload="auto" aria-hidden="true"><source src="assets/feature-llm.webm" type="video/webm"></video>
+        </div>
+        <div class="feat-meta">
+          <div class="feat-title">
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path stroke="currentColor" stroke-linecap="square" stroke-width="1.5" d="M5.626 12.709h3.75m2.917 0h2.083m-8.75-3.334h1.25m2.917 0h4.583M2.293 3.96H17.71v12.083H2.293z"/></svg>
+            <h4>LLM optimized</h4>
+          </div>
+          <p>Intelligent document chunking, embedding optimization, and everything else you need to make your data LLM-ready.</p>
+        </div>
+      </div>
+      <!-- 5 — Image support -->
+      <div class="feat-cell">
+        <div class="feat-vid-wrap">
+          <video class="feat-vid" autoplay loop muted playsinline preload="auto" aria-hidden="true"><source src="assets/feature-image.webm" type="video/webm"></video>
+        </div>
+        <div class="feat-meta">
+          <div class="feat-title">
+            <svg viewBox="0 0 21 20" fill="none" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M10.878 5.833a2.292 2.292 0 1 1-4.584 0 2.292 2.292 0 0 1 4.584 0ZM5.618 10.6c-2.014 0-3.282 5.441-3.282 5.441h16.667c-1.5-5.206-3.09-8.033-4.584-7.91-2.48.206-3.57 4.093-5 4.093-1.189 0-2.299-1.623-3.801-1.623Z"/></svg>
+            <h4>Image support</h4>
+          </div>
+          <p>OCR for scanned pages, faxes, and handwritten content—accurate even with low quality.</p>
+        </div>
+      </div>
+      <!-- 6 — Rotating "and more" showcase -->
+      <div class="feat-cell feat-cell--rotate" id="featRotate">
+        <div class="feat-vid-wrap">
+          <div class="rot-vis">
+            <svg class="rot-svg is-active" data-i="0" viewBox="0 0 120 130" fill="none" stroke="var(--stone-400)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="26" y="10" width="68" height="22" rx="3"/><rect x="26" y="40" width="68" height="22" rx="3" stroke="var(--stone-600)"/><rect x="26" y="70" width="68" height="22" rx="3"/><rect x="26" y="100" width="68" height="22" rx="3"/>
+              <path d="M18 40h-6v22h6M102 40h6v22h-6" stroke="var(--stone-600)"/>
+            </svg>
+            <svg class="rot-svg" data-i="1" viewBox="0 0 120 130" fill="none" stroke="var(--stone-400)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="14" y="16" width="48" height="44" rx="3"/><circle cx="27" cy="30" r="4"/><path d="M14 52l13-12 9 8 8-7 18 16" stroke="var(--stone-500)"/>
+              <path d="M74 24h32M74 36h32M74 48h22" stroke="var(--stone-600)"/><path d="M14 78h92M14 92h92M14 106h60" stroke="var(--stone-400)"/>
+            </svg>
+            <svg class="rot-svg" data-i="2" viewBox="0 0 120 130" fill="none" stroke="var(--stone-400)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16 16v94h94" stroke="var(--stone-600)"/>
+              <rect x="32" y="78" width="14" height="24" rx="1.5"/><rect x="56" y="58" width="14" height="44" rx="1.5" stroke="var(--stone-600)"/><rect x="80" y="38" width="14" height="64" rx="1.5"/>
+              <path d="M28 70l16-16 18 6 26-30" stroke="var(--stone-500)"/>
+            </svg>
+            <svg class="rot-svg" data-i="3" viewBox="0 0 120 130" fill="none" stroke="var(--stone-400)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="38" y="34" width="44" height="58" rx="3" transform="rotate(-14 60 63)" stroke="var(--stone-600)"/>
+              <path d="M52 52h22M52 62h22M52 72h14" transform="rotate(-14 60 63)"/>
+              <path d="M86 26a40 40 0 0 1 8 24" stroke="var(--stone-500)"/><path d="M98 44l-4 8-8-5" stroke="var(--stone-500)"/>
+            </svg>
+            <svg class="rot-svg" data-i="4" viewBox="0 0 120 130" fill="none" stroke="var(--stone-400)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="60" cy="64" r="4" fill="var(--stone-600)" stroke="none"/>
+              <circle cx="26" cy="30" r="3"/><circle cx="96" cy="34" r="3"/><circle cx="22" cy="92" r="3"/><circle cx="92" cy="98" r="3"/><circle cx="60" cy="18" r="3"/><circle cx="104" cy="68" r="3"/><circle cx="16" cy="60" r="3"/>
+              <path d="M60 64l-34-34M60 64l36-30M60 64l-38 28M60 64l32 34M60 64l0-46M60 64l44 4M60 64l-44-4" stroke="var(--stone-300)"/>
+            </svg>
+          </div>
+        </div>
+        <div class="rot-list" aria-hidden="true">
+          <div class="rot-track">
+            <span>Intelligent chunking</span>
+            <span>Figure summarization</span>
+            <span>Graph extraction</span>
+            <span>Automatic page rotation</span>
+            <span>Embedding optimization</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="feat-dots" aria-hidden="true" data-parallax="0.09"></div>
+  </div>
+</section>
+
+<!-- ============ ENTERPRISE (dark) ============ -->
+<section class="section ent-dark" id="enterprise">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow reveal">Enterprise-ready</span>
+      <h2 class="h2 reveal" data-d="1">Built for production, trusted in regulation</h2>
+      <p class="lead reveal" data-d="2">From security to scale, Reducto meets the demands of production AI — and the bar set by the most regulated industries.</p>
+    </div>
+
+    <div class="ent-layout">
+      <!-- LEFT COLUMN -->
+      <div class="ent-col">
+        <div class="ent-feat reveal" data-d="1">
+          <span class="ent-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13h4l2.5-7 4 14 2.5-7H21"/></svg></span>
+          <h4>99.9%+ uptime</h4>
+          <p>Battle-tested infrastructure you can trust in production and at scale.</p>
+        </div>
+        <div class="ent-rule reveal" data-d="2"></div>
+        <div class="ent-feat reveal" data-d="2">
+          <span class="ent-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 13v-1a8 8 0 0116 0v1"/><rect x="2.5" y="13" width="4" height="7" rx="1.6"/><rect x="17.5" y="13" width="4" height="7" rx="1.6"/><path d="M20 20a4 4 0 01-4 3h-2"/></svg></span>
+          <h4>Enterprise support and SLAs</h4>
+          <p>Hands-on forward deployed support and tailored SLAs to meet your enterprise needs.</p>
+        </div>
+      </div>
+
+      <!-- CENTER ILLUSTRATION -->
+      <div class="ent-center reveal" data-d="2">
+        <div class="ent-glow" aria-hidden="true"></div>
+        <div class="ent-illo-frame" data-parallax="0.05">
+          <img class="ent-illo" src="assets/enterprise-ready-illustration.svg" alt="Enterprise security illustration" width="528" height="528">
+          <span class="ent-tint ent-tint--hue" aria-hidden="true"></span>
+          <span class="ent-tint ent-tint--glow" aria-hidden="true"></span>
+        </div>
+        <span class="ent-spark" style="--x:13%; --y:9%;  --c:var(--orange);  --t:0s"></span>
+        <span class="ent-spark" style="--x:88%; --y:14%; --c:var(--olive);   --t:1.1s"></span>
+        <span class="ent-spark" style="--x:7%;  --y:55%; --c:var(--teal);    --t:.6s"></span>
+        <span class="ent-spark" style="--x:91%; --y:64%; --c:#3b82f6;        --t:1.7s"></span>
+        <span class="ent-spark" style="--x:46%; --y:90%; --c:var(--magenta-glow); --t:2.2s"></span>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="ent-col">
+        <div class="ent-feat reveal" data-d="1">
+          <span class="ent-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3v4a1 1 0 001 1h4"/><path d="M19 12V8.5L14.5 4H7a2 2 0 00-2 2v12a2 2 0 002 2h5"/><rect x="13" y="15" width="8" height="6" rx="1.4"/><path d="M15 15v-1.5a2 2 0 014 0V15"/></svg></span>
+          <h4>SOC 2 &amp; HIPAA compliant</h4>
+          <p>Enterprise-grade security, certified for sensitive and regulated data. <a href="#">View our security policies</a>.</p>
+        </div>
+        <div class="ent-rule reveal" data-d="2"></div>
+        <div class="ent-feat reveal" data-d="2">
+          <span class="ent-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/></svg></span>
+          <h4>Deploy in your environment</h4>
+          <p>Run Reducto entirely within your own infrastructure — ideal for strict security, compliance, and data residency requirements.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEVELOPERS / CODE ============ -->
+<section class="section dev" id="developers">
+  <div class="container dev-grid">
+    <div class="dev-copy">
+      <span class="eyebrow reveal">Built for developers</span>
+      <h2 class="h2 reveal" data-d="1" style="margin-top:16px">Make your first API<br>call in minutes</h2>
+      <p class="dev-lead reveal" data-d="2">Clean SDKs, predictable JSON, and docs that respect your time. Start on the pay-as-you-go tier and scale when you're ready.</p>
+      <ul class="dev-points">
+        <li class="reveal" data-d="1"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path d="M20 6L9 17l-5-5"/></svg></span> Python, TypeScript, and REST — your stack, your call.</li>
+        <li class="reveal" data-d="2"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path d="M20 6L9 17l-5-5"/></svg></span> Structured JSON with confidence scores on every field.</li>
+        <li class="reveal" data-d="3"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path d="M20 6L9 17l-5-5"/></svg></span> Native MCP server and webhooks for agentic workflows.</li>
+      </ul>
+      <div class="hero-cta reveal" data-d="3">
+        <a href="#" class="btn btn-on-dark">Read the docs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#cta" class="btn btn-light">Get an API key</a>
+      </div>
+    </div>
+    <div class="code reveal" data-d="2">
+      <div class="code-tabs">
+        <button class="code-tab active" data-code="0">Python</button>
+        <button class="code-tab" data-code="1">cURL</button>
+        <button class="code-tab" data-code="2">Response</button>
+        <button class="code-copy" id="codeCopy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+      </div>
+      <div class="code-body">
+<pre class="active" data-pre="0"><span class="kw">from</span> reducto <span class="kw">import</span> Reducto
+
+client = <span class="fn">Reducto</span>(api_key=<span class="st">"sk_live_..."</span>)
+
+<span class="cm"># Parse any document into structured data</span>
+result = client.parse.<span class="fn">run</span>(
+    document_url=<span class="st">"https://files.acme.co/10-K.pdf"</span>,
+    options={<span class="st">"table_mode"</span>: <span class="st">"agentic"</span>},
+)
+
+<span class="kw">print</span>(result.tables[<span class="nm">0</span>].to_markdown())
+<span class="kw">print</span>(result.<span class="pr">confidence</span>)  <span class="cm"># 0.997</span></pre>
+<pre data-pre="1"><span class="cm"># Parse a document with a single request</span>
+curl https://api.reducto.ai/parse \
+  -H <span class="st">"Authorization: Bearer sk_live_..."</span> \
+  -H <span class="st">"Content-Type: application/json"</span> \
+  -d <span class="st">'{
+    "document_url": "https://files.acme.co/10-K.pdf",
+    "options": { "table_mode": "agentic" }
+  }'</span></pre>
+<pre data-pre="2"><span class="pr">{</span>
+  <span class="kw">"document_type"</span>: <span class="st">"10-K"</span>,
+  <span class="kw">"pages"</span>: <span class="nm">214</span>,
+  <span class="kw">"tables"</span>: <span class="nm">37</span>,
+  <span class="kw">"chunks"</span>: <span class="nm">1240</span>,
+  <span class="kw">"confidence"</span>: <span class="nm">0.997</span>,
+  <span class="kw">"status"</span>: <span class="st">"completed"</span>
+<span class="pr">}</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow reveal">FAQ</span>
+      <h2 class="h2 reveal" data-d="1">Questions, answered</h2>
+    </div>
+    <div class="faq-wrap reveal">
+      <div class="faq-item">
+        <button class="faq-q">Do you offer trials? How do I get an API key? <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>Yes — you can get API access right away on our Standard, pay-as-you-go tier. <a href="#cta">Fill out the contact form</a> if you'd like to discuss a plan or enterprise pricing, and we'll get you set up.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Who is eligible for free credits? <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>New teams building on Reducto receive free credits to evaluate the platform. Reach out and we'll apply them to your account so you can test against your own documents.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can Reducto parse handwriting or non-English languages? <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>Yes. Our image and OCR pipeline handles scanned pages, faxes, and handwritten content, and we support parsing across 100+ languages — including documents that mix multiple languages.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is Reducto HIPAA and SOC 2 compliant? <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>Yes — Reducto is SOC 2 Type II and HIPAA compliant, with enterprise-grade security certified for sensitive and regulated data. You can also deploy entirely within your own environment.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do you have an MCP server? <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>We do. Reducto ships a native MCP server so your agents can parse, extract, and edit documents as tools — alongside webhooks for event-driven pipelines.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">I have a question that isn't answered here. <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="faq-a"><p>We'd love to help. <a href="#cta">Talk to our team</a> and we'll answer anything about accuracy, deployment, security, or pricing.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="section cta" id="cta">
+  <div class="container">
+    <div class="cta-video reveal">
+      <video autoplay loop muted playsinline preload="auto" aria-hidden="true">
+        <source src="assets/hero.webm" type="video/webm">
+      </video>
+    </div>
+    <h2 class="reveal" data-d="1">Document work starts here</h2>
+    <p class="reveal" data-d="2">Ship your first pipeline today, or talk to our team about enterprise accuracy at scale.</p>
+    <div class="cta-actions reveal" data-d="3">
+      <a href="#" class="btn btn-primary btn-lg">Request a demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a href="#developers" class="btn btn-light btn-lg">Try for free</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/reducto-logo.svg" alt="Reducto">
+        <p>The complete agentic document platform for leading AI teams needing performance at enterprise scale.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Platform</h5>
+        <a href="#products">Parse</a><a href="#products">Extract</a><a href="#products">Split</a><a href="#products">Classify</a><a href="#products">Edit</a>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="#developers">Docs</a><a href="#features">Features</a><a href="#enterprise">Security</a><a href="#">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="#">Blog</a><a href="#">Careers</a><a href="#">Customers</a><a href="#">Support</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Trust Center</a><a href="#">LLM Center</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Reducto, Inc. © 2026 — All rights reserved.</span>
+      <div class="socials">
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.3 8.3L23 22h-6.6l-5.2-6.8L5.3 22H2l7.8-8.9L1.5 2h6.8l4.7 6.2zM17.7 20h1.8L7.5 4H5.5z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 002.5 6 2.5 2.5 0 005 8.5 2.5 2.5 0 007.5 6 2.5 2.5 0 004.98 3.5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-3-1.8-3s-2 1.4-2 2.9V21H9z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-wordmark" aria-hidden="true">
+    <img class="footer-wordmark-base" src="assets/reducto-wordmark-footer.svg" alt="">
+    <span class="footer-wordmark-grad"></span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script src="https://unpkg.com/lenis@1/dist/lenis.min.js"></script>
+<script src="enhance.js"></script>
+</body>
+</html>

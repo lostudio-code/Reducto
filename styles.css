@@ -1,0 +1,203 @@
+/* ============================================================
+   REDUCTO — Design System
+   Warm plum/aubergine + magenta accent, stone neutrals,
+   papery editorial base with dramatic dark moments.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* Brand — plum / magenta */
+  --plum-900: #15050f;   /* near-black canvas */
+  --plum-800: #1f0420;
+  --plum-700: #2a0a2c;
+  --plum-600: #441345;   /* deep brand plum */
+  --plum-500: #5e1a5f;
+  --magenta:  #9d17a0;   /* primary accent */
+  --magenta-bright: #c721c9;
+  --magenta-glow: #e24fe4;
+  --lav-400: #dcbffb;    /* lavender */
+  --lav-200: #ecdcfb;
+  --lav-100: #f5ecfb;
+
+  /* Warm neutrals (stone) */
+  --paper:   #f8f7f4;    /* light base */
+  --paper-2: #f2f0ec;
+  --white:   #ffffff;
+  --stone-100: #ecebe7;
+  --stone-200: #e3e0da;  /* hairline border */
+  --stone-300: #d6d3cd;
+  --stone-400: #b4afa7;
+  --stone-500: #8c867c;  /* muted text */
+  --stone-600: #6b655c;
+  --stone-700: #48433c;
+  --stone-800: #2c2823;  /* body on light */
+  --ink:       #1a1714;  /* headings on light */
+
+  /* Functional accents (from cube illustrations) */
+  --olive:  #718613;
+  --orange: #c2691f;
+  --teal:   #1b90a2;
+
+  /* Semantic */
+  --bg: var(--paper);
+  --text: var(--stone-800);
+  --heading: var(--ink);
+  --accent: var(--magenta);
+
+  /* Type */
+  --font-sans: 'Schibsted Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Spacing / layout */
+  --maxw: 1200px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --radius: 14px;
+  --radius-lg: 22px;
+  --radius-sm: 9px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(26,8,28,.06), 0 1px 1px rgba(26,8,28,.04);
+  --shadow-md: 0 10px 30px -12px rgba(40,8,42,.18), 0 2px 8px rgba(40,8,42,.06);
+  --shadow-lg: 0 30px 70px -28px rgba(40,8,42,.32), 0 6px 18px rgba(40,8,42,.08);
+  --shadow-plum: 0 30px 80px -30px rgba(157,23,160,.45);
+
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --ease-out: cubic-bezier(.16,1,.3,1);
+}
+
+/* ----------------------------- Reset ----------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+ul { list-style: none; }
+::selection { background: var(--magenta); color: #fff; }
+
+/* ----------------------------- Typography ----------------------------- */
+h1, h2, h3, h4, h5 { color: var(--heading); font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance; }
+.display {
+  font-size: clamp(2.6rem, 6.4vw, 5rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+}
+.h2 { font-size: clamp(2rem, 4.2vw, 3.3rem); letter-spacing: -0.03em; }
+.h3 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); }
+.lead {
+  font-size: clamp(1.05rem, 1.5vw, 1.32rem);
+  line-height: 1.5;
+  color: var(--stone-600);
+  font-weight: 400;
+  text-wrap: pretty;
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--magenta);
+}
+.mono { font-family: var(--font-mono); }
+
+/* ----------------------------- Layout ----------------------------- */
+.container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding-inline: var(--gutter); }
+.section { padding-block: clamp(72px, 11vw, 150px); position: relative; }
+.section--tight { padding-block: clamp(48px, 7vw, 90px); }
+.center { text-align: center; }
+.section-head { max-width: 760px; }
+.section-head.center { margin-inline: auto; }
+.section-head .eyebrow { margin-bottom: 18px; display: inline-block; }
+.section-head .lead { margin-top: 20px; }
+
+/* ----------------------------- Buttons ----------------------------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-weight: 500; font-size: 0.97rem; letter-spacing: -0.01em;
+  padding: 13px 22px; border-radius: 100px;
+  transition: transform .25s var(--ease), background .25s var(--ease), box-shadow .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+  white-space: nowrap; line-height: 1;
+}
+.btn svg { width: 16px; height: 16px; transition: transform .3s var(--ease); }
+.btn-primary { background: var(--magenta); color: #fff; box-shadow: 0 8px 24px -10px rgba(157,23,160,.6); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 34px -10px rgba(157,23,160,.7); }
+.btn-primary:hover svg { transform: translateX(3px); }
+.btn-ghost { background: transparent; color: var(--heading); border: 1px solid var(--stone-300); }
+.btn-ghost:hover { border-color: var(--stone-500); background: rgba(0,0,0,.02); transform: translateY(-2px); }
+.btn-light { background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.24); backdrop-filter: blur(8px); }
+.btn-light:hover { background: rgba(255,255,255,.16); transform: translateY(-2px); }
+.btn-on-dark { background: #fff; color: var(--plum-700); }
+.btn-on-dark:hover { transform: translateY(-2px); box-shadow: 0 14px 34px -12px rgba(0,0,0,.5); }
+.btn-lg { padding: 16px 28px; font-size: 1.05rem; border-radius: 100px; }
+.link-arrow { display: inline-flex; align-items: center; gap: 6px; color: var(--magenta); font-weight: 500; font-size: .95rem; }
+.link-arrow svg { width: 15px; height: 15px; transition: transform .3s var(--ease); }
+.link-arrow:hover svg { transform: translateX(4px); }
+
+/* ----------------------------- Pills / chips ----------------------------- */
+.pill {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 7px 8px 7px 14px; border-radius: 100px;
+  font-size: 0.84rem; font-weight: 500;
+  border: 1px solid var(--stone-200); background: var(--white); color: var(--stone-700);
+  box-shadow: var(--shadow-sm);
+}
+.pill .tag { font-family: var(--font-mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; background: var(--lav-100); color: var(--magenta); padding: 3px 8px; border-radius: 100px; }
+.pill .chev { width: 14px; height: 14px; opacity: .5; }
+
+/* ----------------------------- Cards ----------------------------- */
+.card {
+  background: var(--white);
+  border: 1px solid var(--stone-200);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+}
+
+/* ----------------------------- Reveal on scroll -----------------------------
+   Hidden pre-reveal ONLY under .js; .in declares the VISIBLE end-state and a
+   transition animates toward it. Because the end-state is a plain declaration
+   (not an animation frame), any stalled/throttled transition simply snaps to
+   visible — content can never get stuck hidden. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity .9s var(--ease-out), transform .9s var(--ease-out);
+}
+.js .reveal.in { opacity: 1; transform: none; }
+.js .reveal[data-d="1"] { transition-delay: .08s; }
+.js .reveal[data-d="2"] { transition-delay: .16s; }
+.js .reveal[data-d="3"] { transition-delay: .24s; }
+.js .reveal[data-d="4"] { transition-delay: .32s; }
+.js .reveal[data-d="5"] { transition-delay: .40s; }
+.js .reveal[data-d="6"] { transition-delay: .48s; }
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* Scroll parallax — JS writes a --parallax offset (px); elements translate by it
+   so it composes with any base transform (e.g. the hero demo's 3D skew). */
+[data-parallax] { will-change: transform; transform: translate3d(0, var(--parallax, 0px), 0); }
+.no-motion [data-parallax] { --parallax: 0px !important; }
+@media (prefers-reduced-motion: reduce) {
+  [data-parallax] { --parallax: 0px !important; }
+}
+
+/* dotted texture util */
+.dotted {
+  background-image: radial-gradient(var(--stone-300) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
