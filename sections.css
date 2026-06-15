@@ -636,7 +636,7 @@
 .cta { position: relative; overflow: hidden; background: radial-gradient(120% 120% at 50% 0%, #3a0f3c, #1c0720 55%, #15050f); color: #fff; text-align: center; }
 .cta::before { content:""; position:absolute; inset:0; background-image: radial-gradient(rgba(220,191,251,.1) 1px, transparent 1px); background-size: 26px 26px; -webkit-mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent); mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent); }
 .cta .container { position: relative; z-index: 2; }
-.cta h2 { color: #fff; font-size: clamp(2.2rem, 5vw, 4rem); letter-spacing: -.03em; }
+.cta h2 { color: #fff; font-family: var(--font-display); font-weight: 400; font-size: clamp(2.4rem, 5.2vw, 4.2rem); letter-spacing: -.01em; }
 .cta p { color: rgba(255,255,255,.72); font-size: 1.2rem; margin: 22px auto 36px; max-width: 540px; }
 .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 .cta-logo { width: 60px; height: 60px; margin: 0 auto 30px; display: grid; place-items: center; border-radius: 16px; background: rgba(255,255,255,.06); border: 1px solid rgba(220,191,251,.2); }
