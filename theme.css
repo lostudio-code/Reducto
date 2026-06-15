@@ -14,12 +14,12 @@ html, body { background: #F9F8F7; }
 /* Unified light background for every section between the hero and footer */
 .section--tight, #how, #features, #developers, #faq, #cta { background: #F9F8F7; }
 
-/* Marquee — dark, blends seamlessly out of the hero (hero fades to #0b0410) */
-.marquee-section { background: #0b0410; color: #fff; }
-.marquee-label { color: rgba(255,255,255,.5); }
-.marquee-label b { color: rgba(255,255,255,.82); }
-.marquee .logo .wordmark { color: rgba(255,255,255,.82); }
-.marquee .logo img { filter: brightness(0) invert(1); opacity: .8; }
+/* Marquee — light band, continuous with the sections below */
+.marquee-section { background: #F9F8F7; color: var(--ink); }
+.marquee-label { color: var(--stone-500); }
+.marquee-label b { color: var(--stone-700); }
+.marquee .logo .wordmark { color: var(--stone-700); }
+.marquee .logo img { filter: brightness(0); opacity: .42; }
 
 /* Products / toolbox — light header band; white 3D cards scroll up over it */
 #products { background: #F9F8F7; color: var(--ink); }
@@ -51,14 +51,32 @@ html, body { background: #F9F8F7; }
 
 /* ---------------- HERO — dark, with bleed-off product shot ---------------- */
 .hero {
-  background: radial-gradient(130% 120% at 76% 0%, #3a0f3c 0%, #210724 42%, #0b0410 84%);
+  background:
+    radial-gradient(80% 60% at 60% -6%, rgba(199,33,201,.30) 0%, transparent 60%),
+    radial-gradient(135% 120% at 62% 0%, #2c0a2e 0%, #170518 44%, #080209 86%);
   color: #fff;
   min-height: 680px;
 }
-.hero::before { background-image:
-  linear-gradient(rgba(220,191,251,.09) 1px, transparent 1px),
-  linear-gradient(90deg, rgba(220,191,251,.09) 1px, transparent 1px); background-size: 26px 26px; }
-.hero::after { background: radial-gradient(closest-side, rgba(199,33,201,.34), transparent 70%); top: -8%; right: 4%; width: 64%; height: 100%; }
+.hero::before { opacity: .5; background-image:
+  linear-gradient(rgba(220,191,251,.07) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(220,191,251,.07) 1px, transparent 1px); background-size: 30px 30px; }
+/* Seamless fade to black at the base so the hero melts into the logo marquee */
+.hero::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 42%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(8,2,9,.7) 55%, #080209 100%);
+  z-index: 1; pointer-events: none;
+}
+
+/* ---------------- HERO FX — volumetric smoke ---------------- */
+.hero-fx { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.no-motion .hero-fx { opacity: .85; }
+
+.hero-smoke {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  mix-blend-mode: screen; opacity: .92;
+  -webkit-mask-image: radial-gradient(125% 95% at 55% 36%, #000 30%, transparent 84%);
+          mask-image: radial-gradient(125% 95% at 55% 36%, #000 30%, transparent 84%);
+}
 .hero h1 { color: #fff; }
 .hero h1 .hl { color: var(--lav-400); }
 .hero-lead { color: rgba(255,255,255,.74); }
@@ -143,10 +161,7 @@ html, body { background: #F9F8F7; }
 
 /* localized light glow accents */
 #products, .cta { position: relative; }
-#products::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
-  background: radial-gradient(55% 45% at 50% -6%, rgba(157,23,160,.06), transparent 60%);
-}
+#products::after { display: none; }
 #products > .container { position: relative; z-index: 1; }
 
 /* Enterprise — warm charcoal dark centerpiece (matches the illustration) */

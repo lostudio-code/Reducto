@@ -1,6 +1,17 @@
+# OS / editor noise
 .DS_Store
-*.DS_Store
-**/.DS_Store
-node_modules/
-.env
+Thumbs.db
 *.log
+.idea/
+.vscode/
+
+# Tooling preview artifacts
+.thumbnail
+
+# Working scratch — source material & screenshots, not part of the site
+uploads/
+scraps/
+screenshots/
+
+# Scraped original site (contains real third-party tracking IDs)
+Reducto_*

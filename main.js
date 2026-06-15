@@ -217,63 +217,80 @@
     });
   }
 
-  /* ---------- HERO twinkle square grid ---------- */
-  const heroCanvas = document.getElementById("heroGrid");
-  if (heroCanvas) {
-    const heroEl = heroCanvas.closest(".hero");
-    const ctx = heroCanvas.getContext("2d");
-    const CELL = 26;
-    const COLORS = [[220,191,251],[199,33,201],[226,79,228]];
-    let W = 0, H = 0, cols = 0, rows = 0, squares = [], raf = 0, running = false;
+  /* ---------- HERO volumetric smoke (drifting puffs, additive glow) ---------- */
+  const smokeCanvas = document.getElementById("heroSmoke");
+  if (smokeCanvas) {
+    const heroEl = smokeCanvas.closest(".hero");
+    const ctx = smokeCanvas.getContext("2d");
+    // tints sampled from brand: magenta-glow, electric violet, magenta, lavender
+    const TINTS = [[226,79,228],[160,74,240],[199,33,201],[214,180,255]];
+    let W = 0, H = 0, parts = [], raf = 0, running = false, last = 0;
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
     const motionOff = () => reduce || document.documentElement.classList.contains("no-motion");
-    const spawn = (now) => ({
-      x: Math.floor(Math.random() * cols) * CELL,
-      y: Math.floor(Math.random() * rows) * CELL,
-      c: COLORS[(Math.random() * COLORS.length) | 0],
-      dur: 2200 + Math.random() * 3000,
-      t0: now,
-      max: 0.1 + Math.random() * 0.3,
-    });
-    const build = () => {
+
+    const resize = () => {
       const r = heroEl.getBoundingClientRect();
       W = r.width; H = r.height;
-      heroCanvas.width = Math.ceil(W * dpr);
-      heroCanvas.height = Math.ceil(H * dpr);
+      smokeCanvas.width = Math.ceil(W * dpr);
+      smokeCanvas.height = Math.ceil(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      cols = Math.ceil(W / CELL); rows = Math.ceil(H / CELL);
-      const count = Math.min(72, Math.round(cols * rows * 0.045));
-      const now = performance.now();
-      squares = [];
-      for (let i = 0; i < count; i++) {
-        const s = spawn(now);
-        s.t0 = now - Math.random() * s.dur; // stagger
-        squares.push(s);
-      }
     };
-    const draw = (now) => {
+    const cx = () => W * 0.5; // ambient fog, gently centered
+    const spawn = () => ({
+      x: cx() + (Math.random() - 0.5) * W * 0.66,
+      y: H * (0.86 + Math.random() * 0.3),
+      r: 70 + Math.random() * 150,
+      vx: (Math.random() - 0.5) * 9,
+      vy: -(7 + Math.random() * 15),
+      ttl: 7 + Math.random() * 7,
+      life: 0,
+      seed: Math.random() * 1000,
+      sway: 8 + Math.random() * 16,
+      tint: TINTS[(Math.random() * TINTS.length) | 0],
+      max: 0.05 + Math.random() * 0.07,
+    });
+    const seed = () => {
+      parts = [];
+      const n = Math.max(20, Math.round(Math.min(52, W / 24)));
+      for (let i = 0; i < n; i++) { const p = spawn(); p.life = Math.random() * p.ttl; parts.push(p); }
+    };
+    const render = (now) => {
       ctx.clearRect(0, 0, W, H);
-      for (let i = 0; i < squares.length; i++) {
-        let s = squares[i];
-        let p = (now - s.t0) / s.dur;
-        if (p >= 1) { s = squares[i] = spawn(now); p = 0; }
-        const a = Math.sin(p * Math.PI) * s.max;
-        ctx.fillStyle = `rgba(${s.c[0]},${s.c[1]},${s.c[2]},${a.toFixed(3)})`;
-        ctx.fillRect(s.x + 1, s.y + 1, CELL - 2, CELL - 2);
+      ctx.globalCompositeOperation = "lighter";
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        const t = p.life / p.ttl;
+        const sway = Math.sin(now / 1000 * 0.5 + p.seed) * p.sway;
+        const x = p.x + sway;
+        const rad = p.r * (0.55 + t * 1.05);
+        const a = Math.sin(t * Math.PI) * p.max;
+        const [r, g, b] = p.tint;
+        const grad = ctx.createRadialGradient(x, p.y, 0, x, p.y, rad);
+        grad.addColorStop(0, `rgba(${r},${g},${b},${a})`);
+        grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
+        ctx.fillStyle = grad;
+        ctx.beginPath(); ctx.arc(x, p.y, rad, 0, 6.2832); ctx.fill();
       }
+      ctx.globalCompositeOperation = "source-over";
     };
     const frame = (now) => {
       if (!running) return;
-      draw(now);
+      const dt = Math.min(0.05, (now - last) / 1000) || 0.016; last = now;
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i]; p.life += dt;
+        if (p.life >= p.ttl) { parts[i] = spawn(); continue; }
+        p.x += p.vx * dt; p.y += p.vy * dt;
+      }
+      render(now);
       raf = requestAnimationFrame(frame);
     };
-    const start = () => { if (running || motionOff()) return; running = true; raf = requestAnimationFrame(frame); };
+    const start = () => { if (running || motionOff()) return; running = true; last = performance.now(); raf = requestAnimationFrame(frame); };
     const stop = () => { running = false; cancelAnimationFrame(raf); };
-    build();
-    draw(performance.now()); // initial static frame (robust if rAF is throttled)
+    resize(); seed();
+    render(performance.now()); // static first frame (covers reduced-motion + throttled rAF)
     start();
     let rt;
-    window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { dpr = Math.min(window.devicePixelRatio || 1, 2); build(); }, 150); });
+    window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { dpr = Math.min(window.devicePixelRatio || 1, 2); resize(); seed(); render(performance.now()); }, 160); });
     new IntersectionObserver((es) => es.forEach((e) => (e.isIntersecting ? start() : stop()))).observe(heroEl);
   }
 

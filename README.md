@@ -1,87 +1,69 @@
-# Reducto Homepage
+# Reducto — Homepage
 
-Marketing website for [Reducto](https://reducto.ai) — the agentic document platform for AI teams. Built as a pixel-perfect implementation of a Claude Design handoff.
+Marketing homepage for Reducto, the agentic document platform. A single-page,
+fully responsive site built with plain HTML, CSS, and vanilla JavaScript, with
+a small React-powered tweak panel layered on top.
 
-## Overview
+## Quick start
 
-A single-page marketing site covering the full Reducto product story: hero with live document parsing demo, product API stack, industry use cases, platform features, enterprise security, developer onboarding, FAQ, and CTA. Designed with a warm plum/aubergine brand palette, rich scroll animations, and Awwwards-grade micro-interactions.
-
-## Stack
-
-- **HTML / CSS / Vanilla JS** — no build step, no framework dependencies
-- **Lenis** — smooth scroll with inertia
-- **Google Fonts** — Schibsted Grotesk (display/body), Geist Mono (code/mono)
-- All assets are local (SVGs, WebM videos)
-
-## Sections
-
-| Section | Description |
-|---|---|
-| Nav | Fixed dark nav, transitions to frosted-glass light on scroll |
-| Hero | Dark gradient, animated twinkle canvas, 3D-tilted live parse demo, email capture form with rotating border beam |
-| Marquee | Dissolve-cycling customer logo board (Harvey, Scale, Legora, Rogo, etc.) |
-| Products | 5-card 3D sticky scroll stack — Parse, Split, Extract, Edit, Classify — with product demo videos |
-| Industries | Finance / Healthcare / Insurance / Legal tabs with animated scan-line overlays |
-| How It Works | 3-step animated diagram: layout detection, VLM review, agentic self-correction |
-| Features | 6-cell bordered grid with feature demo videos and a rotating capability showcase |
-| Enterprise | Dark section with floating illustration, animated gradient tint, conic glow, and sparks |
-| Developers | Code block with Python / cURL / Response tabs and a type-on animation |
-| FAQ | Animated accordion |
-| CTA | Full-width video banner with primary CTAs |
-| Footer | Dark plum with giant wordmark bleeding off the bottom, animated halftone gradient |
-
-## Motion & Interactions
-
-- **Scroll reveals** — elements fade + slide up on enter, with staggered delays
-- **Scroll parallax** — hero demo and enterprise illustration drift against scroll
-- **Lenis smooth scroll** — lerp-based inertia, smooth anchor navigation
-- **Scroll progress bar** — gradient bar under the nav
-- **Click ripples** — radial ink burst on all CTA buttons
-- **Spotlight glows** — cursor-tracked radial highlight on feature and enterprise cards
-- **Industry visual tilt** — perspective tilt + sheen follows the cursor
-- **Animated underlines** — draw-in on footer links and inline anchors
-- **Sliding tab indicator** — smooth underline slides between active code tabs
-- **Type-on effect** — Python code block types itself in when the section enters view
-- **3D product stack** — cards scale and dim as the next card scrolls up over them
-- All effects degrade cleanly under `prefers-reduced-motion`
-
-## Running Locally
-
-No build step required — serve the directory with any static file server:
+No build step. Serve the folder with any static server and open `index.html`:
 
 ```bash
-# Python (built-in)
-cd reducto
-python3 -m http.server 8080
+# Python
+python3 -m http.server 8000
 
-# Node (npx)
+# or Node
 npx serve .
 ```
 
-Then open [http://localhost:8080](http://localhost:8080).
+Then visit `http://localhost:8000`. Opening `index.html` directly over `file://`
+also works, but a local server is recommended so the `.webm` videos and `.svg`
+assets load with the right MIME types.
 
-> Opening `index.html` directly as a `file://` URL will work for most content but WebM videos may not autoplay in all browsers — a local server is recommended.
+## Deploy
 
-## File Structure
+This is a fully static site — no build, no server-side code, no environment
+variables or secrets. Push the repo and point any static host at the root:
+
+- **GitHub Pages** — Settings → Pages → Deploy from branch → `main` / `root`.
+  The site is live at `https://<user>.github.io/<repo>/` within a minute.
+- **Netlify / Vercel / Cloudflare Pages** — import the repo, leave the build
+  command empty and the publish directory as the project root.
+
+The only runtime dependencies are loaded from CDN (Lenis, and React/Babel for
+the optional tweak panel), so the deployed bundle is just HTML, CSS, JS, and the
+files under `assets/`.
+
+## Structure
 
 ```
-reducto/
-├── index.html          # Full page markup
-├── styles.css          # Design system — tokens, typography, layout, buttons
-├── sections.css        # Section & component styles
-├── theme.css           # Light/dark theme overrides, gradient buttons
-├── enhance.css         # Motion layer — Lenis, progress bar, ripples, spotlights
-├── main.js             # Core interactions — reveals, parallax, demos, animations
-├── enhance.js          # Awwwards motion layer — Lenis init, micro-interactions
-└── assets/
-    ├── logos/          # Customer logo SVGs (marquee)
-    ├── products/       # Product demo WebM videos (Parse, Split, Extract, Edit)
-    ├── feature-*.webm  # Feature section demo videos
-    ├── hero.webm       # CTA section background video
-    ├── *-illustration.svg  # Section illustrations
-    └── *.svg           # Logo, wordmark, textures
+index.html        Page markup
+styles.css        Design-system foundation — tokens (color, type, spacing), base elements
+sections.css      Section & component styles (nav, hero, features, industries, footer…)
+theme.css         Light/dark theming layer + the hero/demo treatment
+enhance.css       Motion & micro-interaction layer (smooth scroll, ripples, spotlights)
+main.js           Core interactions — hero canvas, live-parse demo, logo marquee,
+                  sticky product stack, how-it-works visuals, scroll reveals
+enhance.js        Adds Lenis smooth scroll, scroll progress, magnetic CTAs,
+                  click ripples, sliding tab indicators, spotlight glows
+tweaks-panel.jsx  Tweak-panel shell (host protocol, controls)
+tweaks-app.jsx    Brand/type/color tweaks wired into the page
+assets/           SVG illustrations, brand logos (assets/logos), product clips (assets/products), video
 ```
 
-## Design
+## Stylesheet load order
 
-Designed in Claude Design and implemented from a handoff bundle. Brand: warm plum/aubergine (`#2a0a2c`) with magenta accent (`#9d17a0`), stone warm neutrals, and papery editorial base (`#F9F8F7`).
+`styles.css` → `sections.css` → `theme.css` → `enhance.css`. Later files
+intentionally override earlier ones; keep this order if you relink them.
+
+## Dependencies
+
+Loaded from CDN at runtime (no install required):
+
+- [Lenis](https://github.com/darkroomengineering/lenis) — smooth scrolling
+- React 18 + Babel Standalone — only for the optional tweak panel
+
+## Accessibility & motion
+
+All motion respects `prefers-reduced-motion`. The decorative hero/demo visuals
+are marked `aria-hidden`, and interactive elements retain visible focus states.
