@@ -99,3 +99,22 @@ html.lenis, html.lenis body { height: auto; }
 }
 .no-motion .scroll-progress { display: none !important; }
 .no-motion .ind-visual { transform: none !important; }
+
+/* ---------- Device safety: keep inline-authored type + nowrap from breaking small screens ---------- */
+@media (max-width: 1100px) {
+  .ind .section-head h2[style], #products .products-head .lead[style] { white-space: normal !important; }
+}
+@media (max-width: 900px) {
+  .hero .display[style] { font-size: clamp(2.15rem, 7.4vw, 3.4rem) !important; }
+}
+@media (max-width: 480px) {
+  .hero .display[style] { font-size: clamp(1.95rem, 8.6vw, 2.6rem) !important; }
+  .hero-lead[style] { font-size: 15px !important; }
+}
+/* No horizontal scroll on any viewport */
+html, body { max-width: 100%; }
+body { overflow-x: clip; }
+/* Touch targets */
+@media (hover: none) {
+  .nav-cta, .btn-primary, .btn-lg, .hero-form-btn, .ind-tab, .prod-tab, .faq-q { min-height: 44px; }
+}

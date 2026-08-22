@@ -445,7 +445,6 @@
         (p, i) => `
       <article class="stack-card" style="z-index:${i + 1}">
         <div class="sc-info">
-          <div class="sc-num">${String(i + 1).padStart(2, "0")} <span>/ 05</span></div>
           <span class="eyebrow">${p.eyebrow}</span>
           <h3>${p.title}</h3>
           <p>${p.desc}</p>

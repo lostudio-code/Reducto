@@ -40,20 +40,6 @@
     });
   }
 
-  /* ---------- Scroll progress bar ---------- */
-  const prog = document.createElement("div");
-  prog.className = "scroll-progress";
-  document.body.appendChild(prog);
-  const updateProg = () => {
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const p = max > 0 ? clamp(window.scrollY / max, 0, 1) : 0;
-    prog.style.transform = `scaleX(${p.toFixed(4)})`;
-  };
-  window.addEventListener("scroll", updateProg, { passive: true });
-  window.addEventListener("resize", updateProg);
-  if (lenis) lenis.on("scroll", updateProg);
-  updateProg();
-
   /* ---------- Click ripple ---------- */
   $$(".btn-primary, .btn-lg, .nav-cta, .hero-form-btn, .ind .btn-on-dark").forEach((b) => {
     b.classList.add("has-ripple");

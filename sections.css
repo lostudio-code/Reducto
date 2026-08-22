@@ -210,7 +210,7 @@
   gap: clamp(20px, 4.5vw, 64px);
   width: 100%; max-width: 1080px; margin: 0 auto; padding-inline: var(--gutter);
 }
-.logo-slot { flex: 1 1 0; min-width: 0; height: 46px; display: grid; place-items: center; position: relative; }
+.logo-slot { flex: 1 1 0; min-width: 0; height: 58px; display: grid; place-items: center; position: relative; }
 .logo {
   display: flex; align-items: center; justify-content: center;
   max-width: 100%; height: 100%;

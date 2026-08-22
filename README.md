@@ -23,12 +23,31 @@ assets load with the right MIME types.
 ## Deploy
 
 This is a fully static site — no build, no server-side code, no environment
-variables or secrets. Push the repo and point any static host at the root:
+variables or secrets. Every asset path is relative, so it also works from a
+sub-path (e.g. a GitHub Pages project URL).
 
+### Push to GitHub
+
+```bash
+git init
+git add .
+git commit -m "Reducto homepage"
+git branch -M main
+git remote add origin https://github.com/<user>/<repo>.git
+git push -u origin main
+```
+
+### Deploy
+
+- **Vercel** — import the repo at [vercel.com/new](https://vercel.com/new).
+  The included `vercel.json` declares a zero-build static deploy (no framework,
+  no build command, output = repo root) with cache headers, so just click
+  **Deploy**. Every push to `main` ships automatically.
 - **GitHub Pages** — Settings → Pages → Deploy from branch → `main` / `root`.
-  The site is live at `https://<user>.github.io/<repo>/` within a minute.
-- **Netlify / Vercel / Cloudflare Pages** — import the repo, leave the build
-  command empty and the publish directory as the project root.
+  The `.nojekyll` file ensures all files are served verbatim. Live at
+  `https://<user>.github.io/<repo>/` within a minute.
+- **Netlify / Cloudflare Pages** — import the repo, leave the build command
+  empty and the publish directory as the project root.
 
 The only runtime dependencies are loaded from CDN (Lenis, and React/Babel for
 the optional tweak panel), so the deployed bundle is just HTML, CSS, JS, and the

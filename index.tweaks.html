@@ -5,20 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Reducto — The Agentic Document Platform for AI Teams</title>
 <meta name="description" content="Reducto is the agentic document platform for leading AI teams — one API for parsing, extraction, splitting, and editing, built for enterprise accuracy at scale.">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="assets/favicon.svg">
-<meta name="theme-color" content="#0b0410">
-<link rel="canonical" href="https://reducto.ai/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Reducto">
-<meta property="og:title" content="Reducto — Turn documents into data">
-<meta property="og:description" content="The document platform for leading AI teams who demand enterprise performance at scale. One platform for every task.">
-<meta property="og:url" content="https://reducto.ai/">
-<meta property="og:image" content="assets/og-image.svg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Reducto — Turn documents into data">
-<meta name="twitter:description" content="The document platform for leading AI teams who demand enterprise performance at scale.">
-<meta name="twitter:image" content="assets/og-image.svg">
 <script>document.documentElement.className += " js";</script>
 <link rel="stylesheet" href="https://unpkg.com/lenis@1/dist/lenis.css">
 <link rel="stylesheet" href="styles.css">
@@ -580,5 +566,12 @@ curl https://api.reducto.ai/parse \
 <script src="https://unpkg.com/lenis@1/dist/lenis.min.js"></script>
 <script src="enhance.js"></script>
 
+<!-- ============ TWEAKS (React panel; self-wires host protocol) ============ -->
+<div id="tweaks-root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks-app.jsx"></script>
 </body>
 </html>
